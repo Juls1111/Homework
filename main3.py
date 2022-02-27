@@ -8,8 +8,8 @@ def reliability(password):
         return False
 
 userpassword = input('Введите пароль')
-answer = reliability(userpassword)
-if answer == True:
+
+if reliability(userpassword):
     print("Ваш пароль надежный")
 else:
     print("Ваш пароль ненадежный")
