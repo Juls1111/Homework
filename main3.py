@@ -10,6 +10,6 @@ def reliability(password):
 userpassword = input('Введите пароль')
 
 if reliability(userpassword):
-    print("Ваш пароль надежный")
+    print("Ваш пароль надежный.")
 else:
-    print("Ваш пароль ненадежный")
+    print("Ваш пароль ненадежный.")
