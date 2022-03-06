@@ -1,0 +1,29 @@
+import math
+import random
+import statistics
+from statistics import median
+from statistics import mean
+
+
+# 1
+def my_log(l):
+    return [math.log(num) if num > 0 else None for num in l]
+
+
+print(my_log([1, 3, 2.5, -1, 9, 0, 2.71]))
+
+# 2
+lst = [random.randint(1, 10) for _ in range(10)]
+print(lst)
+m1 = max(lst)
+m2 = min(lst)
+if lst.index(m1) > lst.index(m2):
+    print(sum(lst[lst.index(m2) + 1:lst.index(m1)]) / len(lst[lst.index(m2) + 1:lst.index(m1)]))
+else:
+    lst[lst.index(m1)] = median([m1, m2])
+    lst[lst.index(m2)] = median([m1, m2])
+    print(lst)
+
+# 3
+t = [1, 5, 6.3, 6, None, 2.0, -4, None]
+print([elem if elem is not None else mean([i for i in t if i is not None]) for elem in t])
