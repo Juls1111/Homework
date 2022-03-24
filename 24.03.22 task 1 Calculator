@@ -1,0 +1,24 @@
+def calculator():
+    while True:
+        try:
+            num1 = int(input("Введите число №1: "))
+            break
+        except ValueError:
+            print("Вы ввели не число. Повторите ввод")
+    while True:
+        try:
+            num2 = int(input("Введите число №2: "))
+            break
+        except ValueError:
+            print("Вы ввели не число. Повторите ввод")
+    operator = input("Введите +,-, или /: ")
+    if operator == '+':
+        print(num1 + num2)
+    elif operator == "-":
+        print(num1 - num2)
+    else:
+        try:
+            print(num1 / num2)
+        except ZeroDivisionError:
+            print("Ошибка деления на ноль.")
+calculator()
