@@ -1,0 +1,9 @@
+import requests
+
+response = requests.get('https://raw.githubusercontent.com/dm-fedorov/python3_intro/master/lesson_10/temper.stat')
+floats = list(map(float, response.text.split()))
+print('Максимальное значение: ', max(floats))
+print('Максимальное значение:', min(floats))
+print('Среднее значение:',sum(floats) / len(floats))
+uniques = set(floats)
+print('Уникальные значения:', len(uniques))
