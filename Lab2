@@ -1,0 +1,78 @@
+def add(first_name, last_name):
+    file_read = open('studentsss.txt')
+    students = [student for student in file_read.readlines()]
+    file = open('studentsss.txt', 'w')
+    students.append(first_name + ' ' + last_name)
+    for student in sorted(students):
+        file.write(('\n' + student))
+
+
+##add('Смирнов', 'Алексей')
+
+def find(last_name, first_name='nothing'):
+    file = open('studentsss.txt')
+    students = [student.strip('\n') for student in file.readlines() if last_name == student.split(' ')[0]]
+    if first_name == 'nothing':
+        if len(students) != 0:
+            return students
+        else:
+            return 'Cтудентов с такой фамилией нет'
+    else:
+        for student in students:
+            if first_name == student.split(' ')[1]:
+                return 'Студент в группе'
+        return 'Студента в группе нет'
+
+
+##print(find('Смирнов'))
+##print(find('Смирнов','Алексей'))
+
+
+def edit(last_name, first_name, new_last_name='nothing', new_first_name='nothing'):
+    s = ''
+    file_read = open('studentsss.txt')
+    students = [student.strip('\n') for student in file_read.readlines()]
+    for student in students:
+        if student == last_name + ' ' + first_name:
+            s = student
+    if s == '':
+        return 'Студента в группе нет'
+    if (new_last_name == 'nothing') and (new_first_name == 'nothing'):
+        return
+    elif (new_last_name != 'nothing') and (new_first_name == 'nothing'):
+        old_first_name = s.split()[1]
+        new_student = new_last_name + ' ' + old_first_name
+        students.append(new_student)
+        students.remove(s)
+    elif (new_first_name != 'nothing') and (new_last_name == 'nothing'):
+        old_last_name = s.split()[0]
+        new_student = old_last_name + ' ' + new_first_name
+        students.append(new_student)
+        students.remove(s)
+    else:
+        students.remove(s)
+        new_student = new_last_name + ' ' + new_first_name
+        students.append(new_student)
+    file = open('studentsss.txt', 'w')
+    for student in sorted(students):
+        file.write(('\n' + student))
+
+
+##edit('Смирнов', 'Фарид', 'Смирнов', 'Абрам')
+
+def delete(last_name, first_name='nothing'):
+    file_read = open('studentsss.txt')
+    students = [student.strip('\n') for student in file_read.readlines() if last_name == student.split(' ')[0]]
+    if len(students) == 0:
+        return 'Cтудентов с такой фамилией нет'
+    if first_name == 'nothing':
+        first_name = input('Введите имя студента для удаления')
+    for student in students:
+        if first_name == student.split(' ')[1]:
+            students.remove(student)
+            break
+    file = open('studentsss.txt', 'w')
+    for student in sorted(students):
+        file.write(('\n' + student))
+
+##print(delete('Смирнов'))
