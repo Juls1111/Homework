@@ -1,0 +1,33 @@
+def add_task(task_description, task_time_limit):
+    obj = {'task_description': task_description, 'task_time_limit': task_time_limit}
+    import json
+    try:
+        with open('new_file.json', 'r+') as f_read:
+            data = json.load(f_read)
+            data.append(obj)
+            f_read.seek(0)
+            json.dump(data, f_read)
+            print('A new task is inserted into the existing file')
+        with open('new_file.json') as f_check:
+            print(json.load(f_check))
+    except FileNotFoundError:
+        with open('new_file.json', 'w') as f_write:
+            data = [obj]
+            json.dump(data, f_write)
+            print('A new json file is created. A new task is inserted into the file')
+        with open('new_file.json') as f_check:
+            print('Current to_do list: ', json.load(f_check))
+
+
+def delete_task(task_description):
+    import json
+    with open('new_file.json', 'r+') as f_read:
+        data = json.load(f_read)
+        for e in data:
+            if e['task_description'] == task_description:
+                data.remove(e)
+        f_read.seek(0)
+        json.dump(data, f_read)
+        print('A task is deleted from the existing file')
+    with open('new_file.json') as f_check:
+        print('Current to_do list: ', json.load(f_check))
