@@ -1,0 +1,96 @@
+class Hotel:
+    def __init__(self, num_rooms, sgl_rooms, dbl_rooms, junior_suite_rooms, suite_rooms):
+        self._rooms = {}
+        self._rooms['SGL'] = {i: 0 for i in sgl_rooms}
+        self._rooms['DBL'] = {i: 0 for i in dbl_rooms}
+        self._rooms['Junior Suite'] = {i: 0 for i in junior_suite_rooms}
+        self._rooms['Suite'] = {i: 0 for i in suite_rooms}
+        self._costs = {'SGL': 1000, 'DBL': 2000, 'Junior Suite': 3000, 'Suite': 5000}
+
+    def free(self, room_type, room_id):
+        self._rooms[room_type][room_id] = 0  # освобождаем номер
+
+    # 1.Допишите метод occupy, чтобы он проверял занятость номера перед бронировнием: если номер занят, то генерируется исключение RuntimeError
+
+    def occupy(self, room_type, room_id):
+        if self._rooms[room_type][room_id] == 0:
+            self._rooms[room_type][room_id] = 1  # бронируем номер
+        else:
+            raise RuntimeError("Номер занят")
+
+    # 2.Напишите метод __str__ для красивой печати списка номеров через вызов функции print
+
+    def __str__(self):
+        a = ''
+        for type in list(hotel._rooms.keys()):
+            for num in list(hotel._rooms[type].keys()):
+                if self._rooms[type][num] == 0:
+                    a += 'Номер ' + str(num) + " свободен\n"
+                else:
+                    a += 'Номер ' + str(num) + " занят\n"
+        return a
+
+    # 3.Напишите метод, который занимает все свободные номера в отеле
+
+    def all_occupy(self):
+        for type in list(hotel._rooms.keys()):
+            for num in list(hotel._rooms[type].keys()):
+                self._rooms[type][num] = 1
+
+    # 4.Напишите метод, который возвращает долю занятых номеров
+
+    def occupied_rooms_share(self):
+        occupied_count = 0
+        num_of_rooms = 0
+        for type in list(hotel._rooms.keys()):
+            for num in list(hotel._rooms[type].keys()):
+                num_of_rooms += 1
+                if self._rooms[type][num] == 1:
+                    occupied_count += 1
+        return str(occupied_count / num_of_rooms * 100) + '%'
+
+    # 5.Напишите метод, который освобождает все занятые номера отеля
+
+    def all_free(self):
+        for type in list(hotel._rooms.keys()):
+            for num in list(hotel._rooms[type].keys()):
+                self._rooms[type][num] = 0
+
+    # 6.Напишите метод, который возвращает выручку, исходя из занятости комнат (стоимость комнаты - 5 тыс. у.е.)
+
+    def revenue(self):
+        revenue = 0
+        for type in list(hotel._rooms.keys()):
+            for num in list(hotel._rooms[type].keys()):
+                if self._rooms[type][num] == 1:
+                    revenue += hotel._costs[type]
+        return revenue
+
+
+# Проверьте созданные методы через создание объектов и их вызов.
+
+number_of_rooms = 12
+sgl_rooms = [1, 2, 3, 4]
+dbl_rooms = [5, 6, 7, 8]
+junior_suite_rooms = [9, 10]
+suite_rooms = [11, 12]
+
+hotel = Hotel(number_of_rooms, sgl_rooms, dbl_rooms, junior_suite_rooms, suite_rooms)
+print(hotel._rooms)
+
+hotel.all_occupy()
+print(hotel._rooms)
+
+print(hotel.__str__())
+
+hotel.all_free()
+print(hotel._rooms)
+
+hotel.occupy('SGL',4)
+hotel.occupy('DBL',8)
+hotel.occupy('Junior Suite',10)
+print(hotel._rooms)
+
+print(hotel.occupied_rooms_share())
+
+print(hotel.revenue())
